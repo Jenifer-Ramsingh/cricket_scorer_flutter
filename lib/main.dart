@@ -46,7 +46,25 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _score = 0;
   int _wicket = 0;
+  int _overs = 0;
+  int _balls = 0;
   String _team_name = "India";
+  String _over_text = "Over";
+
+  void overs() {
+    _balls++;
+    if (_balls > 5) {
+      _overs++;
+      _over_text = "Overs";
+      _balls = 0;
+    }
+  }
+
+  void _extras() {
+    setState(() {
+      _score++;
+    });
+  }
 
   void _incrementCounter(int _currentScore) {
     setState(() {
@@ -55,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
+      overs();
       _score = _score + _currentScore;
     });
   }
@@ -66,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
+      overs();
       _wicket = _wicket + _wicketCount;
     });
   }
@@ -74,6 +94,8 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _score = 0;
       _wicket = 0;
+      _overs = 0;
+      _balls = 0;
     });
   }
 
@@ -113,14 +135,38 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             new Text(
               '$_team_name',
+              style: Theme.of(context).textTheme.display3,
             ),
             new Container(
-              height: 200,
-              child: Text(
-                '$_score' + '-' + '$_wicket',
-                style: Theme.of(context).textTheme.display4,
-              ),
-            ),
+                height: 200,
+                child: new Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      new Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text(
+                            '$_score' + '-' + '$_wicket',
+                            style: Theme.of(context).textTheme.display4,
+                          ),
+                        ],
+                      ),
+                      new Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            '$_overs' + '.' + '$_balls',
+                            style: Theme.of(context).textTheme.display3,
+                          ),
+                          Text(
+                            '$_over_text',
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                )),
             new Container(
               height: 100,
               child: Row(
@@ -141,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 70,
                       child: FloatingActionButton.extended(
-                          onPressed: () => _incrementCounter(5),
+                          onPressed: _extras,
                           backgroundColor: Colors.blueGrey,
                           tooltip: "5 Runs",
                           label: Text(
@@ -231,7 +277,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 120,
                       child: FloatingActionButton.extended(
-                          onPressed: () => _incrementCounter(1),
+                          onPressed: _extras,
                           tooltip: "Extras",
                           backgroundColor: Colors.purpleAccent,
                           label: Text(
@@ -242,7 +288,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 120,
                       child: FloatingActionButton.extended(
-                          onPressed: () => _incrementCounter(1),
+                          onPressed: _extras,
                           backgroundColor: Colors.purpleAccent,
                           tooltip: "Extras",
                           label: Text(
