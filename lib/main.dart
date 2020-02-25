@@ -45,17 +45,35 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _score = 0;
-  int _wicket = 1;
+  int _wicket = 0;
   String _team_name = "India";
 
-  void _incrementCounter() {
+  void _incrementCounter(int _currentScore) {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _score++;
+      _score = _score + _currentScore;
+    });
+  }
+
+  void _incrementWicket(int _wicketCount) {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _wicket = _wicket + _wicketCount;
+    });
+  }
+
+  void _resetMatch() {
+    setState(() {
+      _score = 0;
+      _wicket = 0;
     });
   }
 
@@ -112,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 70,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementCounter(6),
                           tooltip: "6 Runs",
                           backgroundColor: Colors.deepPurpleAccent,
                           label: Text(
@@ -123,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 70,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementCounter(5),
                           backgroundColor: Colors.blueGrey,
                           tooltip: "5 Runs",
                           label: Text(
@@ -134,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 200,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementCounter(0),
                           backgroundColor: Colors.grey,
                           tooltip: "No Run",
                           label: Text(
@@ -153,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 70,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementCounter(4),
                           backgroundColor: Colors.deepPurpleAccent,
                           tooltip: "4 Runs",
                           label: Text(
@@ -164,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 70,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementCounter(3),
                           tooltip: "3 Runs",
                           label: Text(
                             "3",
@@ -174,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 70,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementCounter(2),
                           tooltip: "2 Runs",
                           label: Text(
                             "2",
@@ -184,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 70,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementCounter(1),
                           tooltip: "1 Run",
                           label: Text(
                             "1",
@@ -202,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 120,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementWicket(1),
                           tooltip: "Wicket",
                           backgroundColor: Colors.redAccent,
                           label: Text(
@@ -213,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 120,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementCounter(1),
                           tooltip: "Extras",
                           backgroundColor: Colors.purpleAccent,
                           label: Text(
@@ -224,7 +242,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 70,
                       width: 120,
                       child: FloatingActionButton.extended(
-                          onPressed: _incrementCounter,
+                          onPressed: () => _incrementCounter(1),
                           backgroundColor: Colors.purpleAccent,
                           tooltip: "Extras",
                           label: Text(
@@ -238,7 +256,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: _incrementCounter,
+          onPressed: _resetMatch,
           tooltip: 'Increment',
           child: Icon(Icons
               .undo)), // This trailing comma makes auto-formatting nicer for build methods.
