@@ -1,2 +1,2 @@
-# cricket_scorer_flutter
+# Crick Scorer 
 This Application is for Score Calculation
